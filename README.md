@@ -67,4 +67,4 @@ When the number of time steps is large, the magnification procedure performed in
 ```
 
 ---
-The code base is adapted from [__K-Planes: Explicit Radiance Fields in Space, Time, and Appearance__](https://sarafridov.github.io/K-Planes), and redistributed under the [BSD 3-clause license](LICENSE).
+The code base is adapted from [K-Planes: Explicit Radiance Fields in Space, Time, and Appearance](https://sarafridov.github.io/K-Planes) and redistributed under the [BSD 3-clause license](LICENSE).
