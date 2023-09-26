@@ -44,6 +44,11 @@ See the example of `scripts/handheld/run_baby.sh` for commands to begin training
 
 See the example of `scripts/handheld/mag_baby.sh` for commands to generate magnified rendering after training. The output will be saved under `logs/handheld/baby/output/render`.
 
+## Handheld + tripod video captures
+We provide some captures where the handheld, freely-moving part of the video is used to reconstruct 3D NeRF, while the motion is magnified from the stablized part of the video captured on a tripod.
+Link to data: [Google Drive](https://drive.google.com/drive/folders/1d8lWyzSRb3KH5AagDWbOaw2BbCgxcJD-?usp=sharing). Tripod scenes are under `data/tripod`, with example scripts under `scripts/tripod`.
+
+
 
 ## Notes
 - Unlike synthetic scenes generated Blender, handheld scenes are captured in the wild with varying scene layouts and compositions.

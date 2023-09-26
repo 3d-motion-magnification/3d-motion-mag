@@ -7,7 +7,7 @@ import pandas as pd
 import torch
 import torch.utils.data
 
-from magnerf.datasets import SyntheticNerfDataset, HandheldDataset
+from magnerf.datasets import SyntheticNerfDataset, HandheldDataset, TripodDataset
 from magnerf.models.lowrank_model import LowrankModel
 from magnerf.utils.ema import EMA
 from magnerf.utils.my_tqdm import tqdm
@@ -175,7 +175,6 @@ def init_tr_data(data_downsample: float, data_dir: str, **kwargs):
         dset = SyntheticNerfDataset(
             data_dir, split='train', downsample=data_downsample,
             max_frames=max_tr_frames, batch_size=batch_size, radius=radius, near_far=near_far)
-
     elif dset_type == "handheld":
         hold_every = parse_optint(kwargs.get('hold_every'))
         dset = HandheldDataset(
@@ -184,6 +183,19 @@ def init_tr_data(data_downsample: float, data_dir: str, **kwargs):
             contraction=kwargs.get('contract', 'True'),
             train_cutoff=int(kwargs.get('train_cutoff', -1)),
             dynamic_start=int(kwargs.get('dynamic_start', 0)),
+            aabb=kwargs.get('bbox'),
+            use_app=kwargs.get('use_app_embedding', False),
+            near_plane=float(kwargs.get('near_plane', 0.2)),
+            far_plane=float(kwargs.get('far_plane', 30.0)),
+            bg_color_aug=kwargs.get('bg_color_aug', 'black'),
+        )
+    elif dset_type == "tripod":
+        hold_every = parse_optint(kwargs.get('hold_every'))
+        dset = TripodDataset(
+            data_dir, split='train', downsample=int(data_downsample), hold_every=hold_every,
+            batch_size=batch_size,
+            contraction=kwargs.get('contract', False),
+            frame_offset=int(kwargs.get('frame_offset', 2)),
             aabb=kwargs.get('bbox'),
             use_app=kwargs.get('use_app_embedding', False),
             near_plane=float(kwargs.get('near_plane', 0.2)),
@@ -220,6 +232,20 @@ def init_ts_data(data_downsample: float, data_dir: str, split: str, **kwargs):
             contraction=kwargs.get('contract', 'True'),
             train_cutoff=int(kwargs.get('train_cutoff', -1)),
             dynamic_start=int(kwargs.get('dynamic_start', 0)),
+            aabb=kwargs.get('bbox'),
+            start_interp_index=int(kwargs.get('start_interp_index', 5)),
+            use_app=kwargs.get('use_app_embedding', 'False'),
+            near_plane_offset=float(kwargs.get('near_plane_offset', 0.0)),
+            near_plane=float(kwargs.get('near_plane', 0.2)),
+            far_plane=float(kwargs.get('far_plane', 30.0)),
+            bg_color_aug=kwargs.get('bg_color_aug', 'black'),
+        )
+    elif dset_type == "tripod":
+        hold_every = parse_optint(kwargs.get('hold_every'))
+        dset = TripodDataset(
+            data_dir, split=split, downsample=data_downsample, hold_every=hold_every,
+            contraction=kwargs.get('contract', False),
+            frame_offset=int(kwargs.get('frame_offset', 2)),
             aabb=kwargs.get('bbox'),
             start_interp_index=int(kwargs.get('start_interp_index', 5)),
             use_app=kwargs.get('use_app_embedding', 'False'),
