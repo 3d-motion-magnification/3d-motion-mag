@@ -36,7 +36,7 @@ See `scripts/synthetic/mag_blender.sh` for commands to generate magnified render
 Link to data: [Google Drive](https://drive.google.com/drive/folders/1d8lWyzSRb3KH5AagDWbOaw2BbCgxcJD-?usp=sharing). Handheld scenes are under `data/handheld`.
 
 
-COLMAP is used to pre-process the data and generate camera poses.
+COLMAP is used to pre-process the data (in the `images` folder) and generate camera poses (in the `sparse` folder).
 
 
 See the example of `scripts/handheld/run_baby.sh` for commands to begin training. Set appropriate `data_dirs` and `expname` (scene folder name) in the config file under `magnerf/configs`.
